@@ -19,6 +19,7 @@ using ZXing;
 using ZXing.QrCode;
 using ZXing.Rendering;
 using ZXing.QrCode.Internal;
+using System.Threading;
 
 namespace AIS
 {
@@ -27,19 +28,31 @@ namespace AIS
         public static string connectionstring = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = Equipment.mdb";
         //private Bitmap objBmp;
         public static int id;
+        OleDbConnection connection = new OleDbConnection(connectionstring);
+        string SqlStr = "";
+
+        void change_conn_state()
+        {
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            else
+            {
+                connection.Open();
+            }
+        }
+
 
         public void RefreshEqData()
         {
-            OleDbConnection connection = new OleDbConnection(connectionstring);
-
-            connection.Open();
-            string SqlStr =
+            change_conn_state();
+            SqlStr =
                     "SELECT *" +
                     "FROM Eqipmentlist ";
             if (Search.Text != "")
             {
-                SqlStr = SqlStr + "WHERE EqName LIKE '%' + @EqName + '%'";
-
+                SqlStr += "WHERE EqName LIKE '%' + @EqName + '%'";
             }
 
             OleDbDataAdapter Adapter = new OleDbDataAdapter(SqlStr, connection);
@@ -51,12 +64,13 @@ namespace AIS
             Adapter.Fill(Table);
             EqList.AutoGenerateColumns = false;
             EqList.DataSource = Table;
+            Thread.Sleep(200);
+            change_conn_state();
         }
 
         public MainForm()
         {
             InitializeComponent();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,7 +85,6 @@ namespace AIS
             InsertForm AddEqForm = new InsertForm();
             AddEqForm.Text = "Добавить оборудование";
 
-            OleDbConnection Conn = new OleDbConnection(connectionstring);
             try
             {
                 Array.Resize(ref AddEqForm.invnumbers, EqList.Rows.Count);
@@ -81,11 +94,11 @@ namespace AIS
                         AddEqForm.invnumbers[i] = EqList.Rows[i].Cells[1].Value.ToString();
                 }
                 //загрузка значений в комбобокс "Участок"
-                Conn.Open();
+                change_conn_state();
                 OleDbDataAdapter Adapter = new OleDbDataAdapter(
                     "SELECT ID, PlotName " +
                     "FROM PlotList " +
-                    "ORDER BY PlotName", Conn);
+                    "ORDER BY PlotName", connection);
                 DataTable Table = new DataTable();
                 Adapter.Fill(Table);
                 AddEqForm.EqPlot.ValueMember = "ID";
@@ -95,12 +108,12 @@ namespace AIS
             }
             finally
             {
-                Conn.Close();
+                change_conn_state();
             }
 
             if (AddEqForm.ShowDialog() == DialogResult.OK)
             {
-                this.RefreshEqData();
+                RefreshEqData();
                 MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
@@ -124,7 +137,7 @@ namespace AIS
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("Данные успешно обновлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.RefreshEqData();
+                    RefreshEqData();
                 }
             }
             else
@@ -140,15 +153,16 @@ namespace AIS
         }
 
         private void EqList_CellClick(object sender, DataGridViewCellEventArgs e)
-        {//обновление историй по нажатию на ячейку в "Оборудование"
+        {
+            //обновление историй по нажатию на ячейку в "Оборудование"
             RefreshDataRequest(id);
         }
 
         public void RefreshDataRequest(int id)
-        { // загрузка данных о выдачах из БД
+        {
+            // загрузка данных о выдачах из БД
             if (EqList.CurrentRow != null)
             {
-                OleDbConnection Conn = new OleDbConnection(connectionstring);
                 string SqlStr = "";
                 try
                 {
@@ -173,9 +187,10 @@ namespace AIS
                             "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString();
 
                     }
-                    Conn.Open();
 
-                    OleDbDataAdapter Adapter = new OleDbDataAdapter(SqlStr, Conn);
+                    change_conn_state();
+
+                    OleDbDataAdapter Adapter = new OleDbDataAdapter(SqlStr, connection);
 
                     DataTable Table = new DataTable();
                     Adapter.Fill(Table);
@@ -200,30 +215,27 @@ namespace AIS
                     {
                         dataGridView2.DataSource = Table;
                     }
-
-
-
+                    Thread.Sleep(200);
                 }
                 finally
                 {
-                    Conn.Close();
+                    change_conn_state();
                 }
             }
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            OleDbConnection Conn = new OleDbConnection(connectionstring);
             if (EqList.CurrentRow != null)
             {
                 if (MessageBox.Show("Удалить выбранную запись об оборудовании вместе с соответствующими историями?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     try
                     {
-                        Conn.Open();
+                        change_conn_state();
                         OleDbCommand Cmd = new OleDbCommand(
                             "DELETE * FROM EqFailHistory " +
-                            "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString(), Conn);
+                            "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString(), connection);
                         Cmd.ExecuteNonQuery(); // удаление возможных историй
 
                         Cmd.CommandText =
@@ -242,7 +254,7 @@ namespace AIS
                         System.Threading.Thread.Sleep(200);
                         RefreshEqData();
                         RefreshDataRequest(id);
-                        Conn.Close();
+                        change_conn_state();
                     }
                 }
             }
@@ -266,7 +278,6 @@ namespace AIS
         private void AddHistory_Click(object sender, EventArgs e)
         {
             InsertHistory history = new InsertHistory();
-            OleDbConnection Conn = new OleDbConnection(connectionstring);
 
             if (EqList.RowCount != 0)
             {
@@ -274,11 +285,11 @@ namespace AIS
                 try
                 {
                     //загрузка значений в комбобокс "Участок"
-                    Conn.Open();
+                    change_conn_state();
                     OleDbDataAdapter Adapter = new OleDbDataAdapter(
                         "SELECT * " +
                         "FROM EmployeeList " +
-                        "ORDER BY FullEmployeeName", Conn);
+                        "ORDER BY FullEmployeeName", connection);
                     DataTable Table = new DataTable();
                     Adapter.Fill(Table);
                     history.FullEmployeeName.ValueMember = "ID";
@@ -288,7 +299,7 @@ namespace AIS
                 }
                 finally
                 {
-                    Conn.Close();
+                    change_conn_state();
                 }
 
 
@@ -301,7 +312,6 @@ namespace AIS
                         MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.RefreshEqData();
                         this.RefreshDataRequest(id);
-
                     }
                 }
 
@@ -333,10 +343,9 @@ namespace AIS
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
 
-            OleDbConnection Conn = new OleDbConnection(connectionstring);
-
             if (id == 0)
-            {//если выбрано Отказы
+            {
+                //если выбрано Отказы
                 if (dataGridView1.RowCount != 0)
                 {
                     EditHistory editFailForm = new EditHistory();
@@ -349,11 +358,11 @@ namespace AIS
                     try
                     {
                         //загрузка значений в комбобокс "Участок"
-                        Conn.Open();
+                        change_conn_state();
                         OleDbDataAdapter Adapter = new OleDbDataAdapter(
                             "SELECT * " +
                             "FROM EmployeeList " +
-                            "ORDER BY FullEmployeeName", Conn);
+                            "ORDER BY FullEmployeeName", connection);
                         DataTable Table = new DataTable();
                         Adapter.Fill(Table);
                         editFailForm.FullEmployeeName.ValueMember = "ID";
@@ -363,7 +372,7 @@ namespace AIS
                     }
                     finally
                     {
-                        Conn.Close();
+                        change_conn_state();
                     }
 
                     editFailForm.EmployeePost.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
@@ -383,7 +392,8 @@ namespace AIS
             }
 
             if (id == 1)
-            {//если выбрана Тех.обслуживание
+            {
+                //если выбрана Тех.обслуживание
                 EditHistory editTechForm = new EditHistory();
 
                 if (dataGridView2.RowCount != 0)
@@ -396,11 +406,11 @@ namespace AIS
                     try
                     {
                         //загрузка значений в комбобокс "Участок"
-                        Conn.Open();
+                        change_conn_state();
                         OleDbDataAdapter Adapter = new OleDbDataAdapter(
                             "SELECT * " +
                             "FROM EmployeeList " +
-                            "ORDER BY FullEmployeeName", Conn);
+                            "ORDER BY FullEmployeeName", connection);
                         DataTable Table = new DataTable();
                         Adapter.Fill(Table);
                         editTechForm.FullEmployeeName.ValueMember = "ID";
@@ -410,7 +420,7 @@ namespace AIS
                     }
                     finally
                     {
-                        Conn.Close();
+                        change_conn_state();
                     }
 
                     editTechForm.EmployeePost.Text = dataGridView2.CurrentRow.Cells[4].Value.ToString();
@@ -441,21 +451,20 @@ namespace AIS
                 MessageBox.Show("Нечего удалять!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            OleDbConnection Conn = new OleDbConnection(connectionstring);
-            string CmdText = "";
             if (dataGridView1.CurrentRow != null && id == 0)
             {
                 if (MessageBox.Show("Удалить выбранную запись истории оборудования?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    Conn.Open();
-                    CmdText = "DELETE * FROM EqFailHistory " +
+                    change_conn_state();
+                    SqlStr = "DELETE * FROM EqFailHistory " +
                         "WHERE EqFailID = " + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                    OleDbCommand Cmd = new OleDbCommand(CmdText, Conn);
+                    OleDbCommand Cmd = new OleDbCommand(SqlStr, connection);
                     Cmd.ExecuteNonQuery(); // удаление возможных историй
-                    Conn.Close();
+                    change_conn_state();
                     RefreshDataRequest(id);
+                    Thread.Sleep(200);
                     MessageBox.Show("Данные успешно удалены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RefreshDataRequest(id);
+                    //RefreshDataRequest(id);
                 }
             }
 
@@ -465,17 +474,16 @@ namespace AIS
                 if (MessageBox.Show("Удалить выбранную запись истории оборудования?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
 
-                    Conn.Open();
+                    change_conn_state();
 
-                    CmdText =
+                    SqlStr =
                         "DELETE * FROM EqTechHistory " +
                         "WHERE EqTechID = " + dataGridView2.CurrentRow.Cells[5].Value.ToString();
-                    OleDbCommand Cmd = new OleDbCommand(CmdText, Conn);
+                    OleDbCommand Cmd = new OleDbCommand(SqlStr, connection);
                     Cmd.ExecuteNonQuery(); // удаление возможных историй
-                    Conn.Close();
+                    change_conn_state();
                     RefreshDataRequest(id);
                     MessageBox.Show("Данные успешно удалены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RefreshDataRequest(id);
                 }
             }
         }
@@ -508,6 +516,7 @@ namespace AIS
             MessageBox.Show("Данная программа \"Учет отказа оборудования\" была создана для более удобного учета оборудования на производстве, а также его техниической истории и истории отказов данного оборудования", "Об авторе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        //экспорт данных в ворд
         private void toolStripButton12_Click(object sender, EventArgs e)
         {
             if (EqList.Rows.Count != 0)
@@ -520,7 +529,6 @@ namespace AIS
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-
                     Export_Data_To_Word(EqList, sfd.FileName);
                 }
             }
@@ -588,7 +596,7 @@ namespace AIS
 
 
                 //стиль таблицы
-                oDoc.Application.Selection.Tables[1].set_Style("Plain Table 1");
+                //oDoc.Application.Selection.Tables[1].set_Style("Plain Table 1");
                 oDoc.Application.Selection.Tables[1].Rows[1].Select();
                 oDoc.Application.Selection.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
@@ -625,7 +633,6 @@ namespace AIS
                     headerRange.Font.Size = 12;
                     headerRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 }
-
 
                 oDoc.SaveAs2(filename);
             }
@@ -691,6 +698,7 @@ namespace AIS
             }
         }
 
+        //функция печати
         private void toolStripButton15_Click(object sender, EventArgs e)
         {
             //путь хранения файла temp
@@ -742,13 +750,13 @@ namespace AIS
 
         }
 
+        //qr коды
         private void ToolStripButton16_Click(object sender, EventArgs e)
         {
             QRcode qrcode = new QRcode();
 
             if (EqList.RowCount != 0)
             {
-
                 qrcode.s0 = EqList.CurrentRow.Cells[0].Value.ToString();
                 qrcode.s1 = EqList.CurrentRow.Cells[1].Value.ToString();
                 qrcode.s2 = EqList.CurrentRow.Cells[2].Value.ToString();
@@ -776,13 +784,14 @@ namespace AIS
             }
         }
 
+
+        //сочетание Ctrl+F для перехода на поиск
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control == true && e.KeyCode == Keys.F)
             {
                 Search.Focus();
             }
-
         }
 
         private void ВыходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -793,32 +802,38 @@ namespace AIS
             }
         }
 
+        //назначение оборудования
         private void ToolStripButton17_Click(object sender, EventArgs e)
         {
 
             OleDbConnection Conn = new OleDbConnection(connectionstring);
-            string CmdText = "";
 
             if (MessageBox.Show("Удалить выбранную запись истории оборудования?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                Conn.Open();
-                CmdText = "INSERT INTO EqPurpose (PurposeName) VALUES ('Проверка');";
-                OleDbCommand Cmd = new OleDbCommand(CmdText, Conn);
+                change_conn_state();
+                SqlStr = "INSERT INTO EqPurpose (PurposeName) VALUES ('Проверка');";
+                OleDbCommand Cmd = new OleDbCommand(SqlStr, Conn);
                 Cmd.ExecuteNonQuery(); // удаление возможных историй
                 Conn.Close();
                 RefreshDataRequest(id);
                 MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshDataRequest(id);
             }
 
         }
 
+        //выхов справочника участков
         private void НазначениеОборудованияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlotCatalog plot = new PlotCatalog();
             plot.Text = "Справочник участков";
 
             plot.ShowDialog();
+        }
+
+        private void УчасткиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EqTypes types = new EqTypes();
+            types.ShowDialog();
         }
     }
 }

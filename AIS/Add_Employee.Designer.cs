@@ -84,7 +84,6 @@
             this.FullEmployeeName.Name = "FullEmployeeName";
             this.FullEmployeeName.Size = new System.Drawing.Size(183, 20);
             this.FullEmployeeName.TabIndex = 4;
-            this.FullEmployeeName.TextChanged += new System.EventHandler(this.FullEmployeeName_TextChanged);
             // 
             // pictureBox1
             // 
@@ -138,7 +137,6 @@
             this.Name = "Add_Employee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add_Employee";
-            this.Load += new System.EventHandler(this.Add_Employee_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

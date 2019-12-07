@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,6 +135,7 @@
             this.eqipmentlistTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqipmentlistTableAdapter();
             this.eqTechHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqTechHistoryTableAdapter();
             this.eqFailHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqFailHistoryTableAdapter();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.EqListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EqList)).BeginInit();
@@ -156,8 +157,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem1,
             this.правкаToolStripMenuItem2,
-            this.справкаToolStripMenuItem1,
-            this.справочникиToolStripMenuItem});
+            this.справочникиToolStripMenuItem,
+            this.справкаToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1029, 24);
@@ -391,6 +392,7 @@
             this.участкиToolStripMenuItem.Name = "участкиToolStripMenuItem";
             this.участкиToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.участкиToolStripMenuItem.Text = "Типы оборудования";
+            this.участкиToolStripMenuItem.Click += new System.EventHandler(this.УчасткиToolStripMenuItem_Click);
             // 
             // файлToolStripMenuItem
             // 
@@ -445,14 +447,14 @@
             this.EqList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.EqList.BackgroundColor = System.Drawing.Color.LightGray;
             this.EqList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.EqList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.EqList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.eqListIDDataGridViewTextBoxColumn,
@@ -572,8 +574,9 @@
             // Delete_Button
             // 
             this.Delete_Button.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Delete_Button.GripMargin = new System.Windows.Forms.Padding(0);
+            this.Delete_Button.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.Delete_Button.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.Delete_Button.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.Delete_Button.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton8,
             this.toolStripButton9,
@@ -584,6 +587,7 @@
             this.toolStripButton16});
             this.Delete_Button.Location = new System.Drawing.Point(0, 23);
             this.Delete_Button.Name = "Delete_Button";
+            this.Delete_Button.Padding = new System.Windows.Forms.Padding(0);
             this.Delete_Button.Size = new System.Drawing.Size(1022, 31);
             this.Delete_Button.TabIndex = 9;
             this.Delete_Button.Text = "toolStrip1";
@@ -718,6 +722,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GrayText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.Search);
             this.panel2.Controls.Add(this.Delete_Button);
@@ -736,7 +741,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label3.Location = new System.Drawing.Point(648, 0);
+            this.label3.Location = new System.Drawing.Point(570, 1);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(215, 20);
             this.label3.TabIndex = 11;
@@ -746,7 +751,7 @@
             // 
             this.Search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Search.Location = new System.Drawing.Point(863, 0);
+            this.Search.Location = new System.Drawing.Point(791, 1);
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(159, 20);
             this.Search.TabIndex = 10;
@@ -857,6 +862,8 @@
             // toolStrip2
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton7,
@@ -1100,6 +1107,16 @@
             // 
             this.eqFailHistoryTableAdapter.ClearBeforeFill = true;
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(956, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 20);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Поиск";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1251,6 +1268,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn eqPlotDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eqStateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArriveDate;
+        private System.Windows.Forms.Button button1;
     }
 }
 
