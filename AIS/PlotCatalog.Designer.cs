@@ -44,6 +44,8 @@
             this.plotListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.equipmentDataSet = new AIS.EquipmentDataSet();
             this.plotListTableAdapter = new AIS.EquipmentDataSetTableAdapters.PlotListTableAdapter();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlotGridView)).BeginInit();
@@ -54,6 +56,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.Search);
             this.panel1.Controls.Add(this.label1);
@@ -61,7 +65,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(431, 55);
+            this.panel1.Size = new System.Drawing.Size(572, 55);
             this.panel1.TabIndex = 6;
             // 
             // label3
@@ -70,7 +74,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(205, 2);
+            this.label3.Location = new System.Drawing.Point(251, 1);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 20);
             this.label3.TabIndex = 13;
@@ -78,11 +82,12 @@
             // 
             // Search
             // 
-            this.Search.Location = new System.Drawing.Point(271, 2);
+            this.Search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Search.Location = new System.Drawing.Point(317, 2);
             this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(157, 20);
+            this.Search.Size = new System.Drawing.Size(172, 20);
             this.Search.TabIndex = 12;
-            this.Search.TextChanged += new System.EventHandler(this.Search_TextChanged);
             // 
             // label1
             // 
@@ -99,15 +104,15 @@
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Add_Plot,
             this.Edit_Plot,
             this.Delete_Plot});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(431, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(572, 31);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -157,7 +162,7 @@
             this.PlotGridView.Name = "PlotGridView";
             this.PlotGridView.ReadOnly = true;
             this.PlotGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.PlotGridView.Size = new System.Drawing.Size(431, 372);
+            this.PlotGridView.Size = new System.Drawing.Size(572, 371);
             this.PlotGridView.TabIndex = 8;
             // 
             // ID
@@ -196,17 +201,40 @@
             // 
             this.plotListTableAdapter.ClearBeforeFill = true;
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(494, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 20);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Поиск";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Search_TextChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.checkBox1.Location = new System.Drawing.Point(87, 5);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 15;
+            this.checkBox1.Text = "Архив";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
             // PlotCatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 427);
+            this.ClientSize = new System.Drawing.Size(572, 426);
             this.Controls.Add(this.PlotGridView);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(520, 465);
             this.Name = "PlotCatalog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PlotCatalog";
@@ -240,5 +268,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn plotNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

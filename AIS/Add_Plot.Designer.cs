@@ -30,9 +30,9 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.PlotName = new System.Windows.Forms.TextBox();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonOK = new System.Windows.Forms.Button();
-            this.PlotName = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,13 @@
             this.label1.Size = new System.Drawing.Size(125, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Наименование участка";
+            // 
+            // PlotName
+            // 
+            this.PlotName.Location = new System.Drawing.Point(137, 11);
+            this.PlotName.Name = "PlotName";
+            this.PlotName.Size = new System.Drawing.Size(172, 20);
+            this.PlotName.TabIndex = 1;
             // 
             // ButtonCancel
             // 
@@ -82,13 +89,6 @@
             this.ButtonOK.UseVisualStyleBackColor = true;
             this.ButtonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
-            // PlotName
-            // 
-            this.PlotName.Location = new System.Drawing.Point(137, 11);
-            this.PlotName.Name = "PlotName";
-            this.PlotName.Size = new System.Drawing.Size(172, 20);
-            this.PlotName.TabIndex = 1;
-            // 
             // Add_Plot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,9 +112,9 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonOK;
         public System.Windows.Forms.TextBox PlotName;
+        public System.Windows.Forms.Label label1;
     }
 }

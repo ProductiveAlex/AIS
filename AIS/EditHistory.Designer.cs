@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditHistory));
             this.Fail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.DateTime = new System.Windows.Forms.DateTimePicker();
@@ -192,6 +193,10 @@
             this.Controls.Add(this.Full);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditHistory";
             this.Text = "EditHistory";
             this.Load += new System.EventHandler(this.EditHistory_Load);

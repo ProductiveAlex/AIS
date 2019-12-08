@@ -41,10 +41,13 @@
             this.EqAssign = new System.Windows.Forms.ComboBox();
             this.EqPlot = new System.Windows.Forms.ComboBox();
             this.EqState = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Add_Button = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.ArriveDate = new System.Windows.Forms.DateTimePicker();
+            this.PurposeAdd = new System.Windows.Forms.Button();
+            this.TypeAdd = new System.Windows.Forms.Button();
+            this.PlotAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -115,6 +118,8 @@
             this.Inv.Name = "Inv";
             this.Inv.Size = new System.Drawing.Size(231, 20);
             this.Inv.TabIndex = 6;
+            this.Inv.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inv_KeyDown);
+            this.Inv.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Inv_KeyPress);
             // 
             // EqName
             // 
@@ -186,19 +191,19 @@
             this.EqState.Size = new System.Drawing.Size(274, 21);
             this.EqState.TabIndex = 11;
             // 
-            // button1
+            // Add_Button
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Image = global::AIS.Properties.Resources.btn_ok;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(131, 216);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 22);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Применить";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Add_Button.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Add_Button.Image = global::AIS.Properties.Resources.btn_ok;
+            this.Add_Button.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Add_Button.Location = new System.Drawing.Point(131, 216);
+            this.Add_Button.Name = "Add_Button";
+            this.Add_Button.Size = new System.Drawing.Size(92, 22);
+            this.Add_Button.TabIndex = 12;
+            this.Add_Button.Text = "Применить";
+            this.Add_Button.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Add_Button.UseVisualStyleBackColor = true;
+            this.Add_Button.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -226,22 +231,57 @@
             // 
             // ArriveDate
             // 
+            this.ArriveDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.ArriveDate.Location = new System.Drawing.Point(176, 178);
             this.ArriveDate.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
             this.ArriveDate.Name = "ArriveDate";
             this.ArriveDate.Size = new System.Drawing.Size(274, 20);
             this.ArriveDate.TabIndex = 15;
-            this.ArriveDate.Value = new System.DateTime(2019, 11, 11, 12, 42, 22, 0);
+            this.ArriveDate.Value = new System.DateTime(2019, 12, 8, 0, 0, 0, 0);
+            // 
+            // PurposeAdd
+            // 
+            this.PurposeAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.PurposeAdd.Location = new System.Drawing.Point(456, 97);
+            this.PurposeAdd.Name = "PurposeAdd";
+            this.PurposeAdd.Size = new System.Drawing.Size(24, 21);
+            this.PurposeAdd.TabIndex = 16;
+            this.PurposeAdd.Text = "...";
+            this.PurposeAdd.UseVisualStyleBackColor = true;
+            // 
+            // TypeAdd
+            // 
+            this.TypeAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.TypeAdd.Location = new System.Drawing.Point(456, 70);
+            this.TypeAdd.Name = "TypeAdd";
+            this.TypeAdd.Size = new System.Drawing.Size(24, 21);
+            this.TypeAdd.TabIndex = 17;
+            this.TypeAdd.Text = "...";
+            this.TypeAdd.UseVisualStyleBackColor = true;
+            this.TypeAdd.Click += new System.EventHandler(this.TypeAdd_Click);
+            // 
+            // PlotAdd
+            // 
+            this.PlotAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.PlotAdd.Location = new System.Drawing.Point(456, 124);
+            this.PlotAdd.Name = "PlotAdd";
+            this.PlotAdd.Size = new System.Drawing.Size(24, 21);
+            this.PlotAdd.TabIndex = 18;
+            this.PlotAdd.Text = "...";
+            this.PlotAdd.UseVisualStyleBackColor = true;
             // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 250);
+            this.ClientSize = new System.Drawing.Size(486, 250);
+            this.Controls.Add(this.PlotAdd);
+            this.Controls.Add(this.TypeAdd);
+            this.Controls.Add(this.PurposeAdd);
             this.Controls.Add(this.ArriveDate);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Add_Button);
             this.Controls.Add(this.EqState);
             this.Controls.Add(this.EqPlot);
             this.Controls.Add(this.EqAssign);
@@ -254,6 +294,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -273,7 +314,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Add_Button;
         private System.Windows.Forms.Button button2;
         public System.Windows.Forms.TextBox Inv;
         public System.Windows.Forms.TextBox EqName;
@@ -283,5 +324,8 @@
         public System.Windows.Forms.ComboBox EqState;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker ArriveDate;
+        private System.Windows.Forms.Button PurposeAdd;
+        private System.Windows.Forms.Button TypeAdd;
+        private System.Windows.Forms.Button PlotAdd;
     }
 }

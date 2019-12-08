@@ -25,7 +25,7 @@ namespace AIS
 {
     public partial class MainForm : Form
     {
-        public static string connectionstring = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source = Equipment.mdb";
+        public static string connectionstring = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source = Equipment.mdb; Persist Security Info=True; Jet OLEDB:Database Password = \"AeqU3=4S\"";
         //private Bitmap objBmp;
         public static int id;
         OleDbConnection connection = new OleDbConnection(connectionstring);
@@ -46,14 +46,53 @@ namespace AIS
 
         public void RefreshEqData()
         {
+            EqList.AutoGenerateColumns = true;
             change_conn_state();
             SqlStr =
-                    "SELECT *" +
-                    "FROM Eqipmentlist ";
+                    "SELECT  " +
+                    "Eqipmentlist.EqListID, " +
+                    "Eqipmentlist.EqInv AS [Инвентарный номер], " +
+                    "Eqipmentlist.EqName AS Наименование, " +
+                    "STR(Eqipmentlist.EqPurposeID) + \". \" + EqPurpose.PurposeName AS Назначение, " +
+                    "STR(Eqipmentlist.EqTypeID) + \". \" + Types.TypeName AS Тип, " +
+                    "STR(Eqipmentlist.EqPlotID) + \". \" + PlotList.PlotName AS Участок, " +
+                    "Eqipmentlist.EqState AS Состояние, " +
+                    "Users.Login + \" | \" + Users.LastName + \" \" + LEFT(Users.FirstName, 1) + \". \" + LEFT(Users.Patronymic, 1) + \".\" AS [ID пользователя добавившего оборудование], " +
+                    "Eqipmentlist.ArriveDate AS [Дата поступления] " +
+                    "FROM ((((Eqipmentlist " +
+                    "INNER JOIN EqPurpose ON Eqipmentlist.EqPurposeID = EqPurpose.ID) " +
+                    "INNER JOIN Types ON Eqipmentlist.EqTypeID = Types.TypeID) " +
+                    "INNER JOIN PlotList ON Eqipmentlist.EqPlotID = PlotList.ID) " +
+                    "INNER JOIN Users ON Eqipmentlist.UserID = Users.ID) ";
             if (Search.Text != "")
             {
-                SqlStr += "WHERE EqName LIKE '%' + @EqName + '%'";
             }
+
+            if (Search.Text != "")
+            {
+                SqlStr += "WHERE Eqipmentlist.EqName LIKE '%' + @EqName + '%' ";
+                if (checkBox1.Checked == false)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "AND Eqipmentlist.Archive = false";
+                }
+            }
+            else
+            {
+                //если true то выбрать без архива
+                if (checkBox1.Checked == true)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "WHERE Eqipmentlist.Archive = false";
+                }
+            }
+
 
             OleDbDataAdapter Adapter = new OleDbDataAdapter(SqlStr, connection);
             if (Search.Text != "")
@@ -62,8 +101,8 @@ namespace AIS
             }
             DataTable Table = new DataTable();
             Adapter.Fill(Table);
-            EqList.AutoGenerateColumns = false;
             EqList.DataSource = Table;
+           // EqList.Columns[0].Visible = false;
             Thread.Sleep(200);
             change_conn_state();
         }
@@ -95,16 +134,6 @@ namespace AIS
                 }
                 //загрузка значений в комбобокс "Участок"
                 change_conn_state();
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(
-                    "SELECT ID, PlotName " +
-                    "FROM PlotList " +
-                    "ORDER BY PlotName", connection);
-                DataTable Table = new DataTable();
-                Adapter.Fill(Table);
-                AddEqForm.EqPlot.ValueMember = "ID";
-                AddEqForm.EqPlot.DisplayMember = "PlotName";
-                AddEqForm.EqPlot.DataSource = Table;
-                AddEqForm.EqPlot.SelectedIndex = 0;
             }
             finally
             {
@@ -115,7 +144,6 @@ namespace AIS
             {
                 RefreshEqData();
                 MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
 
         }
@@ -129,10 +157,13 @@ namespace AIS
                 editForm.textBox1.Text = EqList.CurrentRow.Cells[0].Value.ToString();
                 editForm.Inv.Text = EqList.CurrentRow.Cells[1].Value.ToString();
                 editForm.EqName.Text = EqList.CurrentRow.Cells[2].Value.ToString();
-                editForm.EqAssign.Text = EqList.CurrentRow.Cells[3].Value.ToString();
-                editForm.EqType.Text = EqList.CurrentRow.Cells[4].Value.ToString();
-                editForm.EqPlot.Text = EqList.CurrentRow.Cells[5].Value.ToString();
-                editForm.EqState.Text = EqList.CurrentRow.Cells[6].Value.ToString();
+
+                editForm.load_comboboxes(true, true, true);
+
+                editForm.EqAssign.SelectedIndex = editForm.EqAssign.FindStringExact(EqList.CurrentRow.Cells[3].Value.ToString());
+                editForm.EqType.SelectedIndex = editForm.EqType.FindStringExact(EqList.CurrentRow.Cells[4].Value.ToString());
+                editForm.EqPlot.SelectedIndex = editForm.EqPlot.FindStringExact(EqList.CurrentRow.Cells[5].Value.ToString());
+                editForm.EqState.SelectedIndex = editForm.EqState.FindStringExact(EqList.CurrentRow.Cells[6].Value.ToString());
 
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
@@ -198,23 +229,15 @@ namespace AIS
                     if (id == 0)
                     {
                         dataGridView1.AutoGenerateColumns = false;
-                    }
-
-                    if (id == 1)
-                    {
-                        dataGridView2.AutoGenerateColumns = false;
-                    }
-
-
-                    if (id == 0)
-                    {
                         dataGridView1.DataSource = Table;
                     }
 
                     if (id == 1)
                     {
+                        dataGridView2.AutoGenerateColumns = false;
                         dataGridView2.DataSource = Table;
                     }
+
                     Thread.Sleep(200);
                 }
                 finally
@@ -234,24 +257,23 @@ namespace AIS
                     {
                         change_conn_state();
                         OleDbCommand Cmd = new OleDbCommand(
-                            "DELETE * FROM EqFailHistory " +
+                            "Update EqFailHistory SET Archive = true " +
                             "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString(), connection);
                         Cmd.ExecuteNonQuery(); // удаление возможных историй
 
                         Cmd.CommandText =
-                            "DELETE * FROM EqTechHistory " +
+                            "Update EqTechHistory SET Archive = true " +
                             "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString();
                         Cmd.ExecuteNonQuery(); // удаление возможных историй
 
                         Cmd.CommandText =
-                            "DELETE FROM Eqipmentlist " +
+                            "Update Eqipmentlist SET Archive = true " +
                             "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString();
                         Cmd.ExecuteNonQuery(); // удаление самого поступления
                     }
                     finally
                     {
                         MessageBox.Show("Данные успешно удалены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        System.Threading.Thread.Sleep(200);
                         RefreshEqData();
                         RefreshDataRequest(id);
                         change_conn_state();
@@ -281,7 +303,6 @@ namespace AIS
 
             if (EqList.RowCount != 0)
             {
-
                 try
                 {
                     //загрузка значений в комбобокс "Участок"
@@ -318,8 +339,18 @@ namespace AIS
                 if (id == 1)
                 {
                     history.Text = "Добавить запись об обслуживании";
-                    history.Fail.Enabled = false;
-                    history.label3.Enabled = false;
+                    history.Fail.Visible = false;
+                    history.label3.Visible = false;
+
+                    history.label4.Location = new Point(12, 93);
+                    history.Full.Location = history.label3.Location;
+                    history.EmployeePost.Location = new Point(176, 90);
+                    history.FullEmployeeName.Location = new Point(233, 63);
+
+                    history.Size = new Size(480, 185);
+                    history.button1.Location = new Point(history.button1.Location.X, history.button1.Location.Y - 25);
+                    history.button2.Location = new Point(history.button2.Location.X, history.button2.Location.Y - 25);
+
                     if (history.ShowDialog() == DialogResult.OK)
                     {
                         MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -834,6 +865,11 @@ namespace AIS
         {
             EqTypes types = new EqTypes();
             types.ShowDialog();
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshEqData();
         }
     }
 }

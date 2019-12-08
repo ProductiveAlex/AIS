@@ -78,8 +78,12 @@
             // 
             // EqState
             // 
+            this.EqState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EqState.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EqState.FormattingEnabled = true;
+            this.EqState.Items.AddRange(new object[] {
+            "Работает",
+            "Не работает"});
             this.EqState.Location = new System.Drawing.Point(176, 171);
             this.EqState.Name = "EqState";
             this.EqState.Size = new System.Drawing.Size(274, 21);
@@ -87,6 +91,7 @@
             // 
             // EqPlot
             // 
+            this.EqPlot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EqPlot.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EqPlot.FormattingEnabled = true;
             this.EqPlot.Location = new System.Drawing.Point(176, 144);
@@ -96,6 +101,7 @@
             // 
             // EqAssign
             // 
+            this.EqAssign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EqAssign.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EqAssign.FormattingEnabled = true;
             this.EqAssign.Location = new System.Drawing.Point(176, 117);
@@ -105,6 +111,7 @@
             // 
             // EqType
             // 
+            this.EqType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.EqType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EqType.FormattingEnabled = true;
             this.EqType.Location = new System.Drawing.Point(176, 90);
@@ -210,6 +217,7 @@
             // 
             // ArriveDate
             // 
+            this.ArriveDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.ArriveDate.Location = new System.Drawing.Point(176, 198);
             this.ArriveDate.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
             this.ArriveDate.MinimumSize = new System.Drawing.Size(274, 21);
@@ -232,7 +240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 267);
+            this.ClientSize = new System.Drawing.Size(460, 267);
             this.Controls.Add(this.ArriveDate);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -251,9 +259,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditForm";
             this.Text = "EditForm";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

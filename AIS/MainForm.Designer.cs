@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,10 @@
             this.добавитьИсториюОДанномОборудованииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.редактироватьВыбраннуюИсториюОДанномОборудованииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьВыбраннуюИсториюОборудованияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справочникСотрудниковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.назначениеОборудованияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.участкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.руководствоСистемногоПрограммистаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,10 +59,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.оПрограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обАвтореToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справочникСотрудниковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.назначениеОборудованияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.участкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.правкаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,16 +67,6 @@
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EqListPanel = new System.Windows.Forms.Panel();
             this.EqList = new System.Windows.Forms.DataGridView();
-            this.eqListIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqInvDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqAssignDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqPlotDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqStateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ArriveDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eqipmentlistBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.equipmentDataSet = new AIS.EquipmentDataSet();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.label1 = new System.Windows.Forms.Label();
             this.Delete_Button = new System.Windows.Forms.ToolStrip();
@@ -95,6 +85,7 @@
             this.Button_Delete = new System.Windows.Forms.ToolStripButton();
             this.Button_Refresh = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.TextBox();
             this.AddHistory = new System.Windows.Forms.ToolStripButton();
@@ -123,6 +114,7 @@
             this.fullEmployeeNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeePostDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eqFailHistoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.equipmentDataSet = new AIS.EquipmentDataSet();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.eqListIDDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateTimeTechDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -132,24 +124,25 @@
             this.eqTechIDDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eqTechHistoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.eqipmentlistBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.eqipmentlistTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqipmentlistTableAdapter();
             this.eqTechHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqTechHistoryTableAdapter();
             this.eqFailHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqFailHistoryTableAdapter();
-            this.button1 = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.EqListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EqList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eqipmentlistBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).BeginInit();
             this.Delete_Button.SuspendLayout();
             this.panel2.SuspendLayout();
             this.EqToolPanel.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqFailHistoryBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqTechHistoryBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eqipmentlistBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -305,6 +298,37 @@
             this.удалитьВыбраннуюИсториюОборудованияToolStripMenuItem.Text = "Удалить выбранную историю оборудования";
             this.удалитьВыбраннуюИсториюОборудованияToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton13_Click);
             // 
+            // справочникиToolStripMenuItem
+            // 
+            this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.справочникСотрудниковToolStripMenuItem,
+            this.назначениеОборудованияToolStripMenuItem,
+            this.участкиToolStripMenuItem});
+            this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.справочникиToolStripMenuItem.Text = "Справочники";
+            // 
+            // справочникСотрудниковToolStripMenuItem
+            // 
+            this.справочникСотрудниковToolStripMenuItem.Name = "справочникСотрудниковToolStripMenuItem";
+            this.справочникСотрудниковToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.справочникСотрудниковToolStripMenuItem.Text = "Справочник сотрудников";
+            this.справочникСотрудниковToolStripMenuItem.Click += new System.EventHandler(this.справочникСотрудниковToolStripMenuItem_Click);
+            // 
+            // назначениеОборудованияToolStripMenuItem
+            // 
+            this.назначениеОборудованияToolStripMenuItem.Name = "назначениеОборудованияToolStripMenuItem";
+            this.назначениеОборудованияToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.назначениеОборудованияToolStripMenuItem.Text = "Участки";
+            this.назначениеОборудованияToolStripMenuItem.Click += new System.EventHandler(this.НазначениеОборудованияToolStripMenuItem_Click);
+            // 
+            // участкиToolStripMenuItem
+            // 
+            this.участкиToolStripMenuItem.Name = "участкиToolStripMenuItem";
+            this.участкиToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.участкиToolStripMenuItem.Text = "Типы оборудования";
+            this.участкиToolStripMenuItem.Click += new System.EventHandler(this.УчасткиToolStripMenuItem_Click);
+            // 
             // справкаToolStripMenuItem1
             // 
             this.справкаToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -361,39 +385,6 @@
             this.обАвтореToolStripMenuItem.Text = "Об авторе";
             this.обАвтореToolStripMenuItem.Click += new System.EventHandler(this.обАвтореToolStripMenuItem_Click);
             // 
-            // справочникиToolStripMenuItem
-            // 
-            this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.справочникСотрудниковToolStripMenuItem,
-            this.назначениеОборудованияToolStripMenuItem,
-            this.участкиToolStripMenuItem});
-            this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.справочникиToolStripMenuItem.Text = "Справочники";
-            // 
-            // справочникСотрудниковToolStripMenuItem
-            // 
-            this.справочникСотрудниковToolStripMenuItem.Image = global::AIS.Properties.Resources.employee;
-            this.справочникСотрудниковToolStripMenuItem.Name = "справочникСотрудниковToolStripMenuItem";
-            this.справочникСотрудниковToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.справочникСотрудниковToolStripMenuItem.Text = "Справочник сотрудников";
-            this.справочникСотрудниковToolStripMenuItem.Click += new System.EventHandler(this.справочникСотрудниковToolStripMenuItem_Click);
-            // 
-            // назначениеОборудованияToolStripMenuItem
-            // 
-            this.назначениеОборудованияToolStripMenuItem.Image = global::AIS.Properties.Resources.plot;
-            this.назначениеОборудованияToolStripMenuItem.Name = "назначениеОборудованияToolStripMenuItem";
-            this.назначениеОборудованияToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.назначениеОборудованияToolStripMenuItem.Text = "Участки";
-            this.назначениеОборудованияToolStripMenuItem.Click += new System.EventHandler(this.НазначениеОборудованияToolStripMenuItem_Click);
-            // 
-            // участкиToolStripMenuItem
-            // 
-            this.участкиToolStripMenuItem.Name = "участкиToolStripMenuItem";
-            this.участкиToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.участкиToolStripMenuItem.Text = "Типы оборудования";
-            this.участкиToolStripMenuItem.Click += new System.EventHandler(this.УчасткиToolStripMenuItem_Click);
-            // 
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
@@ -443,29 +434,18 @@
             // 
             this.EqList.AllowUserToAddRows = false;
             this.EqList.AllowUserToDeleteRows = false;
-            this.EqList.AutoGenerateColumns = false;
-            this.EqList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.EqList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.EqList.BackgroundColor = System.Drawing.Color.LightGray;
             this.EqList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.EqList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EqList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.eqListIDDataGridViewTextBoxColumn,
-            this.eqInvDataGridViewTextBoxColumn,
-            this.eqNameDataGridViewTextBoxColumn,
-            this.eqAssignDataGridViewTextBoxColumn,
-            this.eqTypeDataGridViewTextBoxColumn,
-            this.eqPlotDataGridViewTextBoxColumn,
-            this.eqStateDataGridViewTextBoxColumn,
-            this.ArriveDate});
-            this.EqList.DataSource = this.eqipmentlistBindingSource;
             this.EqList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.EqList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.EqList.Location = new System.Drawing.Point(0, 0);
@@ -476,80 +456,6 @@
             this.EqList.TabIndex = 8;
             this.EqList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EqList_CellClick);
             this.EqList.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.EqList_ColumnHeaderMouseClick);
-            // 
-            // eqListIDDataGridViewTextBoxColumn
-            // 
-            this.eqListIDDataGridViewTextBoxColumn.DataPropertyName = "EqListID";
-            this.eqListIDDataGridViewTextBoxColumn.HeaderText = "Уникальный номер";
-            this.eqListIDDataGridViewTextBoxColumn.Name = "eqListIDDataGridViewTextBoxColumn";
-            this.eqListIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqListIDDataGridViewTextBoxColumn.Width = 131;
-            // 
-            // eqInvDataGridViewTextBoxColumn
-            // 
-            this.eqInvDataGridViewTextBoxColumn.DataPropertyName = "EqInv";
-            this.eqInvDataGridViewTextBoxColumn.HeaderText = "Инв. №";
-            this.eqInvDataGridViewTextBoxColumn.Name = "eqInvDataGridViewTextBoxColumn";
-            this.eqInvDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqInvDataGridViewTextBoxColumn.Width = 69;
-            // 
-            // eqNameDataGridViewTextBoxColumn
-            // 
-            this.eqNameDataGridViewTextBoxColumn.DataPropertyName = "EqName";
-            this.eqNameDataGridViewTextBoxColumn.HeaderText = "Наименование оборудования";
-            this.eqNameDataGridViewTextBoxColumn.Name = "eqNameDataGridViewTextBoxColumn";
-            this.eqNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqNameDataGridViewTextBoxColumn.Width = 182;
-            // 
-            // eqAssignDataGridViewTextBoxColumn
-            // 
-            this.eqAssignDataGridViewTextBoxColumn.DataPropertyName = "EqAssign";
-            this.eqAssignDataGridViewTextBoxColumn.HeaderText = "Назначение оборудования";
-            this.eqAssignDataGridViewTextBoxColumn.Name = "eqAssignDataGridViewTextBoxColumn";
-            this.eqAssignDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqAssignDataGridViewTextBoxColumn.Width = 167;
-            // 
-            // eqTypeDataGridViewTextBoxColumn
-            // 
-            this.eqTypeDataGridViewTextBoxColumn.DataPropertyName = "EqType";
-            this.eqTypeDataGridViewTextBoxColumn.HeaderText = "Тип оборудования";
-            this.eqTypeDataGridViewTextBoxColumn.Name = "eqTypeDataGridViewTextBoxColumn";
-            this.eqTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqTypeDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // eqPlotDataGridViewTextBoxColumn
-            // 
-            this.eqPlotDataGridViewTextBoxColumn.DataPropertyName = "EqPlot";
-            this.eqPlotDataGridViewTextBoxColumn.HeaderText = "Участок оборудования";
-            this.eqPlotDataGridViewTextBoxColumn.Name = "eqPlotDataGridViewTextBoxColumn";
-            this.eqPlotDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqPlotDataGridViewTextBoxColumn.Width = 148;
-            // 
-            // eqStateDataGridViewTextBoxColumn
-            // 
-            this.eqStateDataGridViewTextBoxColumn.DataPropertyName = "EqState";
-            this.eqStateDataGridViewTextBoxColumn.HeaderText = "Состояние оборудования";
-            this.eqStateDataGridViewTextBoxColumn.Name = "eqStateDataGridViewTextBoxColumn";
-            this.eqStateDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eqStateDataGridViewTextBoxColumn.Width = 160;
-            // 
-            // ArriveDate
-            // 
-            this.ArriveDate.DataPropertyName = "ArriveDate";
-            this.ArriveDate.HeaderText = "Дата поступления";
-            this.ArriveDate.Name = "ArriveDate";
-            this.ArriveDate.ReadOnly = true;
-            this.ArriveDate.Width = 125;
-            // 
-            // eqipmentlistBindingSource
-            // 
-            this.eqipmentlistBindingSource.DataMember = "Eqipmentlist";
-            this.eqipmentlistBindingSource.DataSource = this.equipmentDataSet;
-            // 
-            // equipmentDataSet
-            // 
-            this.equipmentDataSet.DataSetName = "EquipmentDataSet";
-            this.equipmentDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // splitter1
             // 
@@ -588,7 +494,8 @@
             this.Delete_Button.Location = new System.Drawing.Point(0, 23);
             this.Delete_Button.Name = "Delete_Button";
             this.Delete_Button.Padding = new System.Windows.Forms.Padding(0);
-            this.Delete_Button.Size = new System.Drawing.Size(1022, 31);
+            this.Delete_Button.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.Delete_Button.Size = new System.Drawing.Size(1025, 31);
             this.Delete_Button.TabIndex = 9;
             this.Delete_Button.Text = "toolStrip1";
             // 
@@ -722,6 +629,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GrayText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.Search);
@@ -730,9 +638,19 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 24);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.panel2.Size = new System.Drawing.Size(1029, 58);
             this.panel2.TabIndex = 9;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(959, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(63, 20);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Поиск";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Search_TextChanged);
             // 
             // label3
             // 
@@ -753,10 +671,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Search.Location = new System.Drawing.Point(791, 1);
             this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(159, 20);
+            this.Search.Size = new System.Drawing.Size(162, 20);
             this.Search.TabIndex = 10;
             this.Search.WordWrap = false;
-            this.Search.TextChanged += new System.EventHandler(this.Search_TextChanged);
             // 
             // AddHistory
             // 
@@ -827,7 +744,6 @@
             this.EqToolPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.EqToolPanel.Location = new System.Drawing.Point(0, 0);
             this.EqToolPanel.Name = "EqToolPanel";
-            this.EqToolPanel.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.EqToolPanel.Size = new System.Drawing.Size(1029, 58);
             this.EqToolPanel.TabIndex = 13;
             // 
@@ -872,7 +788,8 @@
             this.toolStrip2.Location = new System.Drawing.Point(0, 23);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip2.Size = new System.Drawing.Size(1022, 31);
+            this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip2.Size = new System.Drawing.Size(1025, 31);
             this.toolStrip2.TabIndex = 9;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -934,6 +851,7 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1010,11 +928,17 @@
             this.eqFailHistoryBindingSource.DataMember = "EqFailHistory";
             this.eqFailHistoryBindingSource.DataSource = this.equipmentDataSet;
             // 
+            // equipmentDataSet
+            // 
+            this.equipmentDataSet.DataSetName = "EquipmentDataSet";
+            this.equipmentDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AutoGenerateColumns = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1095,6 +1019,11 @@
             this.panel1.Size = new System.Drawing.Size(1029, 347);
             this.panel1.TabIndex = 12;
             // 
+            // eqipmentlistBindingSource
+            // 
+            this.eqipmentlistBindingSource.DataMember = "Eqipmentlist";
+            this.eqipmentlistBindingSource.DataSource = this.equipmentDataSet;
+            // 
             // eqipmentlistTableAdapter
             // 
             this.eqipmentlistTableAdapter.ClearBeforeFill = true;
@@ -1107,15 +1036,17 @@
             // 
             this.eqFailHistoryTableAdapter.ClearBeforeFill = true;
             // 
-            // button1
+            // checkBox1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(956, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 20);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Поиск";
-            this.button1.UseVisualStyleBackColor = true;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.checkBox1.Location = new System.Drawing.Point(141, 4);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "Архив";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1139,8 +1070,6 @@
             this.menuStrip1.PerformLayout();
             this.EqListPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EqList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eqipmentlistBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).EndInit();
             this.Delete_Button.ResumeLayout(false);
             this.Delete_Button.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1151,9 +1080,11 @@
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqFailHistoryBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqTechHistoryBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.eqipmentlistBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1260,15 +1191,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton16;
         private System.Windows.Forms.ToolStripMenuItem назначениеОборудованияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem участкиToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eqListIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eqInvDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eqNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eqAssignDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eqTypeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eqPlotDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn eqStateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ArriveDate;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

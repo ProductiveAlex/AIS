@@ -14,6 +14,9 @@ namespace AIS
 {
     public partial class PlotCatalog : Form
     {
+        OleDbConnection Conn = new OleDbConnection(MainForm.connectionstring);
+
+
         public PlotCatalog()
         {
             InitializeComponent();
@@ -21,10 +24,6 @@ namespace AIS
 
         private void PlotCatalog_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'equipmentDataSet.PlotList' table. You can move, or remove it, as needed.
-            this.plotListTableAdapter.Fill(this.equipmentDataSet.PlotList);
-            // TODO: This line of code loads data into the 'equipmentDataSet.PlotList' table. You can move, or remove it, as needed.
-            this.plotListTableAdapter.Fill(this.equipmentDataSet.PlotList);
             Refresh_Plot();
         }
 
@@ -35,17 +34,37 @@ namespace AIS
 
             //выбрать все из EmployeeList
             string SqlStr =
-                    "SELECT *" +
+                    "SELECT * " +
                     "FROM PlotList ";
 
             //если поиск активен
             if (Search.Text != "")
             {
                 SqlStr += "WHERE PlotName LIKE '%' + @PlotName + '%' ";
+                if (checkBox1.Checked == false)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "AND Archive = false";
+                }
             }
-
+            else
+            {
+                //если true то выбрать без архива
+                if (checkBox1.Checked == true)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "WHERE Archive = false";
+                }
+            }
             //сортировка
-            SqlStr += "ORDER BY PlotName";
+            SqlStr += " ORDER BY PlotName";
+
             OleDbDataAdapter Adapter = new OleDbDataAdapter(SqlStr, connection);
 
             if (Search.Text != "")
@@ -81,9 +100,7 @@ namespace AIS
 
             edit.Text = "Редактировать участок";
             edit.Form = 1;
-
             edit.ID = PlotGridView.CurrentRow.Cells[0].Value.ToString();
-
             edit.PlotName.Text = PlotGridView.CurrentRow.Cells[2].Value.ToString();
 
             if (edit.ShowDialog() == DialogResult.OK)
@@ -108,14 +125,13 @@ namespace AIS
 
         private void Delete_Plot_Click(object sender, EventArgs e)
         {
-            OleDbConnection Conn = new OleDbConnection(MainForm.connectionstring);
             if (PlotGridView.RowCount != 0)
             {
                 try
                 {
                     Conn.Open();
                     OleDbCommand Cmd = new OleDbCommand(
-                                    "DELETE * FROM PlotList " +
+                                    "UPDATE PlotList SET Archive = true " +
                                     "WHERE ID = " + PlotGridView.CurrentRow.Cells[1].Value.ToString(), Conn);
                     Cmd.ExecuteNonQuery();
                     MessageBox.Show("Данные успешно удалены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -126,6 +142,11 @@ namespace AIS
                     Refresh_Plot();
                 }
             }
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Refresh_Plot();
         }
     }
 }

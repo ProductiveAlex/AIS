@@ -43,7 +43,27 @@ namespace AIS
             //если поиск активен
             if (Search.Text != "")
             {
-                SqlStr += "WHERE FullEmployeeName LIKE '%' + @FullEmployeeName + '%' OR EmployeePost LIKE '%' +  @EmployeePost + '%' ";
+                SqlStr += "WHERE (FullEmployeeName LIKE '%' + @FullEmployeeName + '%' OR EmployeePost LIKE '%' +  @EmployeePost + '%') ";
+                if (checkBox1.Checked == false)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "AND Archive = false ";
+                }
+            }
+            else
+            {
+                //если true то выбрать без архива
+                if (checkBox1.Checked == true)
+                {
+                    SqlStr += "";
+                }
+                else
+                {
+                    SqlStr += "WHERE Archive = false ";
+                }
             }
 
             //сортировка
@@ -150,6 +170,11 @@ namespace AIS
             {
                 Refresh_Employee();
             }
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Refresh_Employee();
         }
     }
 }

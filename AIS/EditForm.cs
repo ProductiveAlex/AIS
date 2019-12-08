@@ -13,23 +13,31 @@ namespace AIS
 {
     public partial class EditForm : Form
     {
+        OleDbConnection connection = new OleDbConnection(MainForm.connectionstring);
+
         public EditForm()
         {
             InitializeComponent();
+        }
+
+        void change_conn_state()
+        {
+            if (connection.State == ConnectionState.Open)
+                connection.Close();
+            else
+                connection.Open();
         }
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
             MainForm main = new MainForm();
 
-            OleDbConnection conn = new OleDbConnection(MainForm.connectionstring);
-            conn.Open();
-
+            change_conn_state();
 
             string CmdText = "UPDATE Eqipmentlist SET EqInv = @EqInv, EqName = @EqName, EqAssign = @EqAssign, EqType = @EqType, EqPlot = @EqPlot,  EqState = @EqState, ArriveDate = @ArriveDate"   
            + "WHERE EqListID = @EqListID";
             
-            OleDbCommand Cmd = new OleDbCommand(CmdText, conn);
+            OleDbCommand Cmd = new OleDbCommand(CmdText, connection);
             Cmd.Parameters.AddWithValue("EqInv", Inv.Text);
             Cmd.Parameters.AddWithValue("EqName", EqName.Text);
             Cmd.Parameters.AddWithValue("EqAssign", EqAssign.Text);
@@ -88,8 +96,6 @@ namespace AIS
                 return;
             }
 
-
-
             Cmd.ExecuteNonQuery();
             main.RefreshEqData();
             
@@ -98,6 +104,59 @@ namespace AIS
         private void label7_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            //load_comboboxes(true, true, true);
+        }
+
+        public void load_comboboxes(bool type, bool purpose, bool plot)
+        {
+            change_conn_state();
+
+            if (type)
+            {
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(
+                       "SELECT TypeID, STR(TypeID) + \". \" + TypeName AS [Наименование типа] " +
+                       "FROM Types " +
+                       "ORDER BY TypeName", connection);
+                DataTable Table = new DataTable();
+                Adapter.Fill(Table);
+                EqType.ValueMember = "TypeID";
+                EqType.DisplayMember = "Наименование типа";
+                EqType.DataSource = Table;
+                EqType.SelectedIndex = 0;
+            }
+
+            if (purpose)
+            {
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(
+                       "SELECT ID, STR(ID) + \". \"  + PurposeName AS [Назначение] " +
+                       "FROM EqPurpose " +
+                       "ORDER BY PurposeName", connection);
+                DataTable Table = new DataTable();
+                Adapter.Fill(Table);
+                EqAssign.ValueMember = "ID";
+                EqAssign.DisplayMember = "Назначение";
+                EqAssign.DataSource = Table;
+                EqAssign.SelectedIndex = 0;
+            }
+
+            if (plot)
+            {
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(
+                       "SELECT ID, STR(ID) + \". \"  + PlotName AS [Наименование участка] " +
+                       "FROM PlotList " +
+                       "ORDER BY PlotName", connection);
+                DataTable Table = new DataTable();
+                Adapter.Fill(Table);
+                EqPlot.ValueMember = "ID";
+                EqPlot.DisplayMember = "Наименование участка";
+                EqPlot.DataSource = Table;
+                EqPlot.SelectedIndex = 0;
+            }
+            change_conn_state();
         }
     }
 }

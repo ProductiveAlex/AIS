@@ -119,16 +119,16 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 13);
+            this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Дата произошедшего";
+            this.label1.Text = "Дата события";
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Image = global::AIS.Properties.Resources.btn_ok;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(136, 170);
+            this.button1.Location = new System.Drawing.Point(136, 145);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 22);
             this.button1.TabIndex = 6;
@@ -139,6 +139,7 @@
             // 
             // DateTime
             // 
+            this.DateTime.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DateTime.Location = new System.Drawing.Point(176, 9);
             this.DateTime.Name = "DateTime";
             this.DateTime.Size = new System.Drawing.Size(274, 20);
@@ -168,7 +169,7 @@
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Image = global::AIS.Properties.Resources.btn_cancel;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(234, 170);
+            this.button2.Location = new System.Drawing.Point(234, 145);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 22);
             this.button2.TabIndex = 7;
@@ -181,7 +182,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 201);
+            this.ClientSize = new System.Drawing.Size(464, 176);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.Fail);
             this.Controls.Add(this.label3);
@@ -194,7 +195,7 @@
             this.Controls.Add(this.Full);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -210,14 +211,14 @@
         public System.Windows.Forms.ComboBox EmployeePost;
         public System.Windows.Forms.ComboBox FullEmployeeName;
         public System.Windows.Forms.TextBox EqFailName;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label Full;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
         public System.Windows.Forms.TextBox Fail;
         public System.Windows.Forms.DateTimePicker DateTime;
         public System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        public System.Windows.Forms.Label Full;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button button2;
     }
 }
