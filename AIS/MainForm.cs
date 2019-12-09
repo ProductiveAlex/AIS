@@ -58,15 +58,14 @@ namespace AIS
                     "STR(Eqipmentlist.EqPlotID) + \". \" + PlotList.PlotName AS Участок, " +
                     "Eqipmentlist.EqState AS Состояние, " +
                     "Users.Login + \" | \" + Users.LastName + \" \" + LEFT(Users.FirstName, 1) + \". \" + LEFT(Users.Patronymic, 1) + \".\" AS [ID пользователя добавившего оборудование], " +
-                    "Eqipmentlist.ArriveDate AS [Дата поступления] " +
+                    "FORMAT(Eqipmentlist.ArriveDate, \"dd.MM.yyyy\") AS [Дата поступления] " +
                     "FROM ((((Eqipmentlist " +
                     "INNER JOIN EqPurpose ON Eqipmentlist.EqPurposeID = EqPurpose.ID) " +
                     "INNER JOIN Types ON Eqipmentlist.EqTypeID = Types.TypeID) " +
                     "INNER JOIN PlotList ON Eqipmentlist.EqPlotID = PlotList.ID) " +
                     "INNER JOIN Users ON Eqipmentlist.UserID = Users.ID) ";
-            if (Search.Text != "")
-            {
-            }
+            
+
 
             if (Search.Text != "")
             {
@@ -123,22 +122,6 @@ namespace AIS
         {
             InsertForm AddEqForm = new InsertForm();
             AddEqForm.Text = "Добавить оборудование";
-
-            try
-            {
-                Array.Resize(ref AddEqForm.invnumbers, EqList.Rows.Count);
-                for (int i = 0; i < EqList.Rows.Count; i++)
-                {
-                    if (EqList.Rows.Count != 0)
-                        AddEqForm.invnumbers[i] = EqList.Rows[i].Cells[1].Value.ToString();
-                }
-                //загрузка значений в комбобокс "Участок"
-                change_conn_state();
-            }
-            finally
-            {
-                change_conn_state();
-            }
 
             if (AddEqForm.ShowDialog() == DialogResult.OK)
             {
@@ -247,7 +230,7 @@ namespace AIS
             }
         }
 
-        private void toolStripButton6_Click(object sender, EventArgs e)
+        private void  toolStripButton6_Click(object sender, EventArgs e)
         {
             if (EqList.CurrentRow != null)
             {
@@ -257,26 +240,15 @@ namespace AIS
                     {
                         change_conn_state();
                         OleDbCommand Cmd = new OleDbCommand(
-                            "Update EqFailHistory SET Archive = true " +
+                            "Update Eqipmentlist SET Archive = true " +
                             "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString(), connection);
                         Cmd.ExecuteNonQuery(); // удаление возможных историй
-
-                        Cmd.CommandText =
-                            "Update EqTechHistory SET Archive = true " +
-                            "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString();
-                        Cmd.ExecuteNonQuery(); // удаление возможных историй
-
-                        Cmd.CommandText =
-                            "Update Eqipmentlist SET Archive = true " +
-                            "WHERE EqListID = " + EqList.CurrentRow.Cells[0].Value.ToString();
-                        Cmd.ExecuteNonQuery(); // удаление самого поступления
                     }
                     finally
                     {
                         MessageBox.Show("Данные успешно удалены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RefreshEqData();
                         RefreshDataRequest(id);
-                        change_conn_state();
                     }
                 }
             }
@@ -342,19 +314,12 @@ namespace AIS
                     history.Fail.Visible = false;
                     history.label3.Visible = false;
 
-                    history.label4.Location = new Point(12, 93);
-                    history.Full.Location = history.label3.Location;
-                    history.EmployeePost.Location = new Point(176, 90);
-                    history.FullEmployeeName.Location = new Point(233, 63);
-
-                    history.Size = new Size(480, 185);
-                    history.button1.Location = new Point(history.button1.Location.X, history.button1.Location.Y - 25);
-                    history.button2.Location = new Point(history.button2.Location.X, history.button2.Location.Y - 25);
+                    history.Size = new Size(history.Size.Width, history.Size.Height - history.Fail.Size.Height - 5);
+                    
 
                     if (history.ShowDialog() == DialogResult.OK)
                     {
                         MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.RefreshEqData();
                         this.RefreshDataRequest(id);
                     }
                 }

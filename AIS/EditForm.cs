@@ -14,6 +14,9 @@ namespace AIS
     public partial class EditForm : Form
     {
         OleDbConnection connection = new OleDbConnection(MainForm.connectionstring);
+        string OldSelected = ""; //сохранение выбранного в списке
+        bool nonNumberEntered = false;
+        DataTable EqInvs = new DataTable();
 
         public EditForm()
         {
@@ -28,26 +31,20 @@ namespace AIS
                 connection.Open();
         }
 
-        private void ButtonOK_Click(object sender, EventArgs e)
+        void load_inv_numb()
         {
-            MainForm main = new MainForm();
-
             change_conn_state();
 
-            string CmdText = "UPDATE Eqipmentlist SET EqInv = @EqInv, EqName = @EqName, EqAssign = @EqAssign, EqType = @EqType, EqPlot = @EqPlot,  EqState = @EqState, ArriveDate = @ArriveDate"   
-           + "WHERE EqListID = @EqListID";
-            
-            OleDbCommand Cmd = new OleDbCommand(CmdText, connection);
-            Cmd.Parameters.AddWithValue("EqInv", Inv.Text);
-            Cmd.Parameters.AddWithValue("EqName", EqName.Text);
-            Cmd.Parameters.AddWithValue("EqAssign", EqAssign.Text);
-            Cmd.Parameters.AddWithValue("EqType", EqType.Text);
-            Cmd.Parameters.AddWithValue("EqPlot", EqPlot.Text);
-            Cmd.Parameters.AddWithValue("EqState", EqState.Text);
-            Cmd.Parameters.AddWithValue("EqListID", textBox1.Text);
-            Cmd.Parameters.AddWithValue("ArriveDate", ArriveDate.Value);
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(
+                       "SELECT EqInv " +
+                       "FROM Eqipmentlist " +
+                       "ORDER BY EqInv", connection);
+            Adapter.Fill(EqInvs);
+            change_conn_state();
+        }
 
-            InsertForm insert = new InsertForm();
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
             if (!uint.TryParse(Inv.Text, out uint z))
             {
                 MessageBox.Show("Инвентарный номер должен состоять только из цифр!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -64,7 +61,7 @@ namespace AIS
                 return;
             }
 
-            if (EqAssign.SelectedIndex == 0)
+            if (EqAssign.SelectedIndex == -1)
             {
                 MessageBox.Show("Необходимо выбрать назначение оборудования!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 EqAssign.Focus();
@@ -72,7 +69,7 @@ namespace AIS
                 return;
             }
 
-            if (EqType.SelectedIndex == 0)
+            if (EqType.SelectedIndex == -1)
             {
                 MessageBox.Show("Необходимо выбрать тип оборудования!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 EqType.Focus();
@@ -80,7 +77,7 @@ namespace AIS
                 return;
             }
 
-            if (EqPlot.SelectedIndex == 0)
+            if (EqPlot.SelectedIndex == -1)
             {
                 MessageBox.Show("Необходимо выбрать участок эксплуатации оборудования!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 EqPlot.Focus();
@@ -96,9 +93,23 @@ namespace AIS
                 return;
             }
 
+            change_conn_state();
+
+            string CmdText = "UPDATE Eqipmentlist SET EqInv = @EqInv, EqName = @EqName, EqAssign = @EqAssign, EqType = @EqType, EqPlot = @EqPlot,  EqState = @EqState, ArriveDate = @ArriveDate"
+           + "WHERE EqListID = @EqListID";
+
+            OleDbCommand Cmd = new OleDbCommand(CmdText, connection);
+            Cmd.Parameters.AddWithValue("EqInv", Inv.Text);
+            Cmd.Parameters.AddWithValue("EqName", EqName.Text);
+            Cmd.Parameters.AddWithValue("EqAssign", EqAssign.Text);
+            Cmd.Parameters.AddWithValue("EqType", EqType.Text);
+            Cmd.Parameters.AddWithValue("EqPlot", EqPlot.Text);
+            Cmd.Parameters.AddWithValue("EqState", EqState.Text);
+            Cmd.Parameters.AddWithValue("EqListID", textBox1.Text);
+            Cmd.Parameters.AddWithValue("ArriveDate", ArriveDate.Value);
+
             Cmd.ExecuteNonQuery();
-            main.RefreshEqData();
-            
+            change_conn_state();
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -108,7 +119,8 @@ namespace AIS
 
         private void EditForm_Load(object sender, EventArgs e)
         {
-            //load_comboboxes(true, true, true);
+            load_comboboxes(true, true, true);
+            load_inv_numb();
         }
 
         public void load_comboboxes(bool type, bool purpose, bool plot)
@@ -157,6 +169,89 @@ namespace AIS
                 EqPlot.SelectedIndex = 0;
             }
             change_conn_state();
+        }
+
+        private void TypeAdd_Click(object sender, EventArgs e)
+        {
+            Add_Plot add = new Add_Plot();
+            add.Form = 3;
+            add.label1.Text = "Тип оборудования";
+            add.Text = "Добавить тип оборудования";
+
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                OldSelected = EqType.Text;
+                load_comboboxes(true, false, false);
+                EqType.SelectedIndex = EqType.FindStringExact(OldSelected);
+                MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void PurposeAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlotAdd_Click(object sender, EventArgs e)
+        {
+            Add_Plot add = new Add_Plot();
+            add.Text = "Добавить участок";
+            add.Form = 0;
+
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                OldSelected = EqPlot.Text;
+                load_comboboxes(false, false, true);
+                EqPlot.SelectedIndex = EqPlot.FindStringExact(OldSelected);
+                MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void Inv_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // проверка на корректность ввода
+            if (nonNumberEntered == true)
+            {
+                //прекратить ввод, если некорректный ввод
+                e.Handled = true;
+            }
+        }
+
+        private void Inv_KeyDown(object sender, KeyEventArgs e)
+        {
+            //проверка на ввод (является ли введенный символ числом или нет)
+            nonNumberEntered = false;
+            if (e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9)
+            {
+                nonNumberEntered = false;
+                // определение верхнего ряда цифр
+                if (e.KeyCode < Keys.D0 || e.KeyCode > Keys.D9)
+                {
+                    // определение клавиш на NumPad'е
+                    if (e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9)
+                    {
+                        // Является ли BackSpace'ом
+                        if (e.KeyCode != Keys.Back)
+                        {
+                            // Является ли клавишей NumPad
+                            if (e.KeyCode != Keys.NumLock)
+                                //если нет, тогда вернуть значение true для срабатывания триггера в KyePressed
+                                nonNumberEntered = true;
+                        }
+                    }
+                }
+                //Если цифра нажата, но при этом нажата и клавиша Shift (т.е. спецсимвол)
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    nonNumberEntered = true;
+                }
+
+                //поддержка сочетаний ctrl+z и ctrl+y
+                if (Control.ModifierKeys == Keys.Control && e.KeyCode == Keys.Z)
+                {
+                    nonNumberEntered = false;
+                }
+            }
         }
     }
 }

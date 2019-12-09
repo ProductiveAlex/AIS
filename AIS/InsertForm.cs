@@ -18,6 +18,9 @@ namespace AIS
         public string[] invnumbers;
         bool nonNumberEntered = false;
         OleDbConnection connection = new OleDbConnection(MainForm.connectionstring);
+        string OldSelected = "";
+        DataTable EqInvs = new DataTable();
+
 
         public InsertForm()
         {
@@ -27,9 +30,27 @@ namespace AIS
         void change_conn_state()
         {
             if (connection.State == ConnectionState.Open)
+            {
                 connection.Close();
+                MessageBox.Show("Закрыто");
+            }
             else
+            {
                 connection.Open();
+                MessageBox.Show("Открыто");
+            }
+        }
+
+        void load_inv_numb()
+        {
+            change_conn_state();
+
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(
+                       "SELECT EqInv " +
+                       "FROM Eqipmentlist " +
+                       "ORDER BY EqInv", connection);
+            Adapter.Fill(EqInvs);
+            change_conn_state();
         }
 
         void load_comboboxes(bool type, bool purpose, bool plot)
@@ -83,41 +104,14 @@ namespace AIS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            change_conn_state();
-            string CmdText = "INSERT INTO Eqipmentlist(EqInv, EqName, EqPurposeID, EqTypeID, EqPlotID, EqState, ArriveDate, UserID) Values ('"
-                + Inv.Text + "' , '"
-                + EqName.Text + " ' , "
-                + EqAssign.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , "
-                + EqType.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , "
-                + EqPlot.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , '"
-                + EqState.Text + "' , '"
-                + ArriveDate.Value + "', 1) ";
-            //1 пока не сделаны пользователи
-
-            bool check = true;
-            int i = 0;
-
-            //проверка на существование данного инвентарного номера
-            while (check && i < invnumbers.Length)
-            {
-                if (invnumbers.Length != 0)
+            foreach (DataRow inv in EqInvs.Rows)
+                if (Inv.Text == inv[0].ToString())
                 {
-                    if (Inv.Text == invnumbers[i].ToString())
-                    {
-                        MessageBox.Show(i.ToString());
-                        MessageBox.Show("Инвентарный номер должен иметь уникальное значение", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        Inv.Focus();
-                        this.DialogResult = DialogResult.None;
-                        check = false;
-                        return;
-                    }
-                    i++;
+                    MessageBox.Show("Инвентарный номер должен иметь уникальное значение", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Inv.Focus();
+                    this.DialogResult = DialogResult.None;
+                    return;
                 }
-                else
-                {
-                    check = false;
-                }
-            }
 
             if (EqName.TextLength == 0)
             {
@@ -158,6 +152,17 @@ namespace AIS
                 this.DialogResult = DialogResult.None;
                 return;
             }
+            change_conn_state();
+            string CmdText = "INSERT INTO Eqipmentlist(EqInv, EqName, EqPurposeID, EqTypeID, EqPlotID, EqState, ArriveDate, UserID) Values ('"
+                + Inv.Text + "' , '"
+                + EqName.Text + " ' , "
+                + EqAssign.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , "
+                + EqType.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , "
+                + EqPlot.Text.Substring(0, EqAssign.Text.IndexOf('.')) + " , '"
+                + EqState.Text + "' , '"
+                + ArriveDate.Value + "', 1) ";
+            //1 пока не сделаны пользователи
+
 
             OleDbCommand Cmd = new OleDbCommand(CmdText, connection);
             Cmd.ExecuteNonQuery();
@@ -179,6 +184,7 @@ namespace AIS
         private void InsertForm_Load(object sender, EventArgs e)
         {
             load_comboboxes(true, true, true);
+            load_inv_numb();
             ArriveDate.MaxDate = DateTime.Today;
             EqState.SelectedIndex = 0;
         }
@@ -232,7 +238,38 @@ namespace AIS
 
         private void TypeAdd_Click(object sender, EventArgs e)
         {
+            Add_Plot add = new Add_Plot();
+            add.Form = 3;
+            add.label1.Text = "Тип оборудования";
+            add.Text = "Добавить тип оборудования";
 
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                OldSelected = EqType.Text;
+                load_comboboxes(true, false, false);
+                EqType.SelectedIndex = EqType.FindStringExact(OldSelected);
+                MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void PurposeAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlotAdd_Click(object sender, EventArgs e)
+        {
+            Add_Plot add = new Add_Plot();
+            add.Text = "Добавить участок";
+            add.Form = 0;
+
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                OldSelected = EqPlot.Text;
+                load_comboboxes(false, false, true);
+                EqPlot.SelectedIndex = EqPlot.FindStringExact(OldSelected);
+                MessageBox.Show("Данные успешно добавлены", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

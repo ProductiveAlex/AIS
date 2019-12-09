@@ -16,7 +16,7 @@ namespace AIS
         public string ID;
         public int Form = -1;
         bool cancontinue = false;
-        OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0; Data Source = Equipment.mdb");
+        OleDbConnection conn = new OleDbConnection(MainForm.connectionstring);
         string SqlStr = "";
 
         public Add_Plot()

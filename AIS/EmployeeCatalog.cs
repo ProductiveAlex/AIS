@@ -89,7 +89,7 @@ namespace AIS
         {
             Add_Employee add = new Add_Employee();
             add.Text = "Добавить сотрудника";
-            add.pictureBox1.Image = Properties.Resources.add_user_128px;
+            add.pictureBox1.Image = Properties.Resources.add_user;
             add.Form = 0;
 
             if (add.ShowDialog() == DialogResult.OK)
@@ -123,8 +123,11 @@ namespace AIS
             edit.Form = 1;
 
             edit.ID = EmployeeGridView.CurrentRow.Cells[0].Value.ToString();
+            string[] FIO = EmployeeGridView.CurrentRow.Cells[1].Value.ToString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            edit.FullEmployeeName.Text = EmployeeGridView.CurrentRow.Cells[1].Value.ToString();
+            edit.FullEmployeeName.Text = FIO[0];
+            edit.textBox1.Text = FIO[1];
+            edit.textBox2.Text = FIO[2];
             edit.EmployeePost.Text = EmployeeGridView.CurrentRow.Cells[2].Value.ToString();
 
             if (edit.ShowDialog() == DialogResult.OK)

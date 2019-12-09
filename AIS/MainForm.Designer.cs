@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +85,7 @@
             this.Button_Delete = new System.Windows.Forms.ToolStripButton();
             this.Button_Refresh = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.Search = new System.Windows.Forms.TextBox();
@@ -100,10 +101,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.Table_Type = new System.Windows.Forms.ComboBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
-            this.label2 = new System.Windows.Forms.Label();
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.eqFailIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -128,14 +129,10 @@
             this.eqipmentlistTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqipmentlistTableAdapter();
             this.eqTechHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqTechHistoryTableAdapter();
             this.eqFailHistoryTableAdapter = new AIS.EquipmentDataSetTableAdapters.EqFailHistoryTableAdapter();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.menuStrip1.SuspendLayout();
             this.EqListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EqList)).BeginInit();
-            this.Delete_Button.SuspendLayout();
             this.panel2.SuspendLayout();
             this.EqToolPanel.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqFailHistoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).BeginInit();
@@ -147,11 +144,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem1,
-            this.правкаToolStripMenuItem2,
-            this.справочникиToolStripMenuItem,
-            this.справкаToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1029, 24);
@@ -192,7 +184,7 @@
             this.печатьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.печатьToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.печатьToolStripMenuItem.Text = "Печать";
-            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.ПечатьToolStripMenuItem_Click);
+            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton15_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -437,14 +429,14 @@
             this.EqList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.EqList.BackgroundColor = System.Drawing.Color.LightGray;
             this.EqList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EqList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.EqList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.EqList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.EqList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -483,19 +475,11 @@
             this.Delete_Button.GripMargin = new System.Windows.Forms.Padding(0);
             this.Delete_Button.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.Delete_Button.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.Delete_Button.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton8,
-            this.toolStripButton9,
-            this.toolStripButton10,
-            this.toolStripButton12,
-            this.toolStripButton14,
-            this.toolStripButton15,
-            this.toolStripButton16});
-            this.Delete_Button.Location = new System.Drawing.Point(0, 23);
+            this.Delete_Button.Location = new System.Drawing.Point(0, 29);
             this.Delete_Button.Name = "Delete_Button";
             this.Delete_Button.Padding = new System.Windows.Forms.Padding(0);
             this.Delete_Button.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.Delete_Button.Size = new System.Drawing.Size(1025, 31);
+            this.Delete_Button.Size = new System.Drawing.Size(1025, 25);
             this.Delete_Button.TabIndex = 9;
             this.Delete_Button.Text = "toolStrip1";
             // 
@@ -641,6 +625,18 @@
             this.panel2.Size = new System.Drawing.Size(1029, 58);
             this.panel2.TabIndex = 9;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.checkBox1.Location = new System.Drawing.Point(141, 4);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 16;
+            this.checkBox1.Text = "Архив";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -781,17 +777,23 @@
             this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton7,
-            this.toolStripButton11,
-            this.toolStripButton13});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 23);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 29);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip2.Size = new System.Drawing.Size(1025, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(1025, 25);
             this.toolStrip2.TabIndex = 9;
             this.toolStrip2.Text = "toolStrip2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 20);
+            this.label2.TabIndex = 0;
             // 
             // toolStripButton7
             // 
@@ -820,16 +822,6 @@
             this.toolStripButton13.Size = new System.Drawing.Size(79, 28);
             this.toolStripButton13.Text = "Удалить";
             this.toolStripButton13.Click += new System.EventHandler(this.toolStripButton13_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 20);
-            this.label2.TabIndex = 0;
             // 
             // miniToolStrip
             // 
@@ -1036,18 +1028,6 @@
             // 
             this.eqFailHistoryTableAdapter.ClearBeforeFill = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.checkBox1.Location = new System.Drawing.Point(141, 4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(56, 17);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "Архив";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1066,18 +1046,12 @@
             this.Text = "Учет отказа оборудования";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.EqListPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EqList)).EndInit();
-            this.Delete_Button.ResumeLayout(false);
-            this.Delete_Button.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.EqToolPanel.ResumeLayout(false);
             this.EqToolPanel.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eqFailHistoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.equipmentDataSet)).EndInit();

@@ -253,19 +253,10 @@
     <None Include="Resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\income.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\item.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\item_add.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\item_add_gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\item_close.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\item_delete.png" />
@@ -284,15 +275,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\main_exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\main_items.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\print.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\request.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SimpleStore.ico" />
@@ -342,28 +324,13 @@
     <None Include="Resources\word.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fuel.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\excel.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\printer.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\employee.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\plot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="bin\Debug\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\big user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\add_user 128px.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit.png" />
@@ -385,6 +352,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\QR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Equipment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_green_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\form_green_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\item_add1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SimpleStore.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Equipment_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
